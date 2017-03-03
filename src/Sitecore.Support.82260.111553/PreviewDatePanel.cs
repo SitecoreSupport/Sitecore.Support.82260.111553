@@ -1,6 +1,7 @@
 ﻿using Sitecore.ExperienceEditor.Speak.Ribbon.Panels.PreviewDatePanel;
 using Sitecore.Support.ExperienceEditor.Speak.Ribbon.Requests.PreviewDate;
 using System;
+using Sitecore.Support.Web;
 using System.Web.UI;
 
 namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Panels.PreviewDatePanel
@@ -11,11 +12,11 @@ namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Panels.PreviewDatePanel
         {
             get
             {
-                return AddDaysRequest.GetCurrentDate("dummy");
+                return WebEditUtil.GetCurrentDate("dummy");
             }
             set
             {
-                AddDaysRequest.SetCurrentDate(value, "dummy");
+                WebEditUtil.SetCurrentDate(value, "dummy");
             }
         }
 

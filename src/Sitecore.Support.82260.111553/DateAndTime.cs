@@ -14,7 +14,7 @@ namespace Sitecore.Support.ExperienceEditor.Speak.Ribbon.Panels.PreviewDatePanel
 
         protected new void InitializeControl()
         {
-            base.CurrentDateAndTime = DateUtil.ToServerTime(AddDaysRequest.GetCurrentDate("dummy"));
+            base.CurrentDateAndTime = DateUtil.ToServerTime(Sitecore.Support.Web.WebEditUtil.GetCurrentDate("dummy"));
             base.Class = "sc-chunk-datepanel-datetime";
             base.DataBind = "visible: isVisible, click: click, command: command, enabled: isEnabled, datetime: dateTime";
             ResourcesCache.RequireJs(this, "ribbon", "DateAndTime.js");
