@@ -45,6 +45,8 @@
             base.Class = "sc-pageeditbar";
             base.DataBind = "visible: isVisible";
             ResourcesCache.RequireJs(this, "ExperienceEditor", "PageEditBar.js");
+            ResourcesCache.RequireJs(this, "ExperienceEditor", "Sitecore.ExperienceEditor.js");
+            ResourcesCache.RequireJs(this, "ExperienceEditor", "Sitecore.ExperienceEditor.TranslationsUtils.js");
             base.HasNestedComponents = true;
             ResourcesCache.RequireCss(this, "ribbon", "SpeakRibbon.css");
         }
@@ -59,7 +61,6 @@
             base.Attributes["data-sc-database"] = this.ContextDatabase.Name;
             base.Attributes["data-sc-language"] = this.ContextLanguage.Name;
             base.Attributes["data-sc-version"] = this.ContextItem.Version.Number.ToString(CultureInfo.InvariantCulture);
-            base.Attributes["data-sc-isfallback"] = this.ContextItem.IsFallback.ToString().ToLowerInvariant();
             base.Attributes["data-sc-ishome"] = this.IsHomeItem().ToString().ToLowerInvariant();
             base.Attributes["data-sc-deviceid"] = HttpUtility.UrlEncode(this.ContextDevice.ID.ToString());
             base.Attributes["data-sc-islocked"] = this.ContextItem.Locking.IsLocked().ToString().ToLowerInvariant();
@@ -68,9 +69,6 @@
             base.Attributes["data-sc-isreadonly"] = flag.ToString().ToLowerInvariant();
             base.Attributes["data-sc-url"] = HttpUtility.UrlEncode(WebUtil.GetQueryString(Sitecore.ExperienceEditor.Speak.Constants.RequestParameters.Url));
             base.Attributes["data-sc-sitename"] = WebUtil.GetQueryString(Sitecore.ExperienceEditor.Speak.Constants.RequestParameters.PageSite);
-            base.Attributes["data-sc-analyticsenabled"] = AnalyticsUtility.IsAnalyticsEnabled().ToString().ToLowerInvariant();
-            bool flag2 = Settings.RequireLockBeforeEditing && !Context.User.IsAdministrator;
-            base.Attributes["data-sc-requirelockbeforeedit"] = flag2.ToString().ToLowerInvariant();
             base.Attributes["data-sc-virtualfolder"] = SiteContext.GetSite(base.Attributes["data-sc-sitename"]).VirtualFolder;
         }
 
@@ -87,7 +85,7 @@
         }
 
         protected Database ContextDatabase =>
-            (this.contextDatabase ?? (this.contextDatabase = Sitecore.ExperienceEditor.Speak.ContextUtil.ResolveDatabase()));
+            (this.contextDatabase ?? (this.contextDatabase = Sitecore.Support.ExperienceEditor.Speak.ContextUtil.ResolveDatabase()));
 
         protected DeviceItem ContextDevice
         {
@@ -105,7 +103,7 @@
             (this.contextItem ?? (this.contextItem = Sitecore.Support.ExperienceEditor.Speak.ContextUtil.ResolveItem()));
 
         protected Language ContextLanguage =>
-            (this.contextLanguage ?? (this.contextLanguage = Sitecore.ExperienceEditor.Speak.ContextUtil.ResolveLanguage()));
+            (this.contextLanguage ?? (this.contextLanguage = Sitecore.Support.ExperienceEditor.Speak.ContextUtil.ResolveLanguage()));
     }
 }
 

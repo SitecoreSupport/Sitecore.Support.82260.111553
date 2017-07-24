@@ -45,16 +45,6 @@
             Language language = ResolveLanguage();
             string path = string.IsNullOrEmpty(HttpContext.Current.Request[Sitecore.ExperienceEditor.Speak.Constants.RequestParameters.ItemId]) ? "{110D559F-DEA5-42EA-9C1C-8A5DF7E70EF9}" : HttpContext.Current.Request[Sitecore.ExperienceEditor.Speak.Constants.RequestParameters.ItemId];
             arg = ResolveDatabase().GetItem(path, language);
-            string str2 = HttpContext.Current.Request[Sitecore.ExperienceEditor.Speak.Constants.RequestParameters.Version];
-            if (!string.IsNullOrEmpty(str2))
-            {
-                Sitecore.Data.Version version = Sitecore.Data.Version.Parse(str2);
-                Item item3 = arg.Database.GetItem(arg.ID, language, version);
-                if (item3 != null)
-                {
-                    return func(item3);
-                }
-            }
 
             //#TODO: investigate how to pass proper context site to the WebEditUtil::GetCurrentDate invocation
             Item validVersion = arg.Publishing.GetValidVersion(Sitecore.Support.Web.WebEditUtil.GetCurrentDate("dummy"), false);
